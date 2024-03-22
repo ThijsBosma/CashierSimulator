@@ -4,7 +4,10 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/EndingScenes/HomelessEnding.unity
+    guid: ef51385b3f68fde4080cb2389349c2f3
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 19e57c5eb684ef4478b1db8a387f352f, type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 11428be0b97df4145b1896b9eaa70ffa, type: 2}
