@@ -9,6 +9,7 @@ public class CustomerManager : MonoBehaviour
 {
     [Header("Positions")]
     [SerializeField] private Transform[] _PointsOfInterest;
+    [SerializeField] private Transform _Entrance;
     [SerializeField] private Transform _CashRegister;
 
     [Header("Components")]
@@ -16,17 +17,17 @@ public class CustomerManager : MonoBehaviour
 
     [Header("CustomerVariables")]
     [SerializeField] private float _TimeBetweenVisits;
-    private float _distanceCompare = 1f;
     public bool _canSpawnProduce;
+    private float _distanceCompare = 1f;
 
     private Coroutine _coroutine;
 
-    private int _randomizedIndex;
+    private float _randomizedIndex;
     private int _PointsOfInterestVisited;
 
     void Start()
     {
-        _randomizedIndex = Random.Range(0, _PointsOfInterest.Length);
+        _randomizedIndex = Random.Range(1, _PointsOfInterest.Length);
     }
 
     void Update()
@@ -43,18 +44,20 @@ public class CustomerManager : MonoBehaviour
         {
             _Agent.SetDestination(_PointsOfInterest[_PointsOfInterestVisited].position);
 
-            _PointsOfInterestVisited += 1;
+            if (Vector3.Distance(transform.position, _PointsOfInterest[_PointsOfInterestVisited].position) <= _distanceCompare)
+            {
+                _PointsOfInterestVisited += 1;
 
-            yield return new WaitForSeconds(_TimeBetweenVisits);
+                yield return new WaitForSeconds(_TimeBetweenVisits);
 
-            _coroutine = null;
+                _coroutine = null;
+            }
         }
-
-        if(_PointsOfInterestVisited >= _randomizedIndex)
+        else
         {
             _Agent.SetDestination(_CashRegister.position);
 
-            if(Vector3.Distance(transform.position, _CashRegister.position) <= _distanceCompare)
+            if (Vector3.Distance(transform.position, _CashRegister.position) <= _distanceCompare)
             {
                 _canSpawnProduce = true;
             }

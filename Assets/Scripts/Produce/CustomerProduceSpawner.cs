@@ -12,12 +12,12 @@ public class CustomerProduceSpawner : MonoBehaviour
     private CustomerManager _customerManager;
 
     private Coroutine _coroutine;
-    private int _randomizedIndex;
+    private float _randomizedIndex;
     private int _produceSpawned;
 
-    private void Start()
+    private void Awake()
     {
-        _randomizedIndex = Random.Range(0, _Produce.Length);
+        _randomizedIndex = Random.Range(1, _Produce.Length);
         _customerManager = GetComponent<CustomerManager>();
     }
 
@@ -43,10 +43,6 @@ public class CustomerProduceSpawner : MonoBehaviour
 
                 _coroutine = null;
             }
-        }
-        else
-        {
-            Destroy(gameObject);
         }
     }
 }
