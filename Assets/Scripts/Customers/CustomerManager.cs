@@ -1,40 +1,50 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class CustomerManager : MonoBehaviour
 {
     [Header("Positions")]
     [SerializeField] private Transform[] _PointsOfInterest;
-    [SerializeField] private Transform _Entrance;
+    
     [SerializeField] private Transform _CashRegister;
+    [SerializeField] private Transform _Exit;
 
     [Header("Components")]
     [SerializeField] private NavMeshAgent _Agent;
+    private Scanner _scannerComponent;
 
     [Header("CustomerVariables")]
     [SerializeField] private float _TimeBetweenVisits;
+    [SerializeField] private TextMeshProUGUI _TimerText;
+    
+    private float _Timer = 90f;
+
     public bool _canSpawnProduce;
     private float _distanceCompare = 1f;
 
-    private Coroutine _coroutine;
+    private Coroutine _positionCoroutine;
 
     private float _randomizedIndex;
     private int _PointsOfInterestVisited;
 
+
     void Start()
     {
         _randomizedIndex = Random.Range(1, _PointsOfInterest.Length);
+        _scannerComponent = FindObjectOfType<Scanner>();
     }
 
     void Update()
     {
-        if(_coroutine == null)
+        if(_positionCoroutine == null)
         {
-            _coroutine = StartCoroutine(SetPosition());
+            _positionCoroutine = StartCoroutine(SetPosition());
         }
     }
 
@@ -50,7 +60,7 @@ public class CustomerManager : MonoBehaviour
 
                 yield return new WaitForSeconds(_TimeBetweenVisits);
 
-                _coroutine = null;
+                _positionCoroutine = null;
             }
         }
         else
@@ -60,9 +70,34 @@ public class CustomerManager : MonoBehaviour
             if (Vector3.Distance(transform.position, _CashRegister.position) <= _distanceCompare)
             {
                 _canSpawnProduce = true;
+
+                if (_scannerComponent._FinishedHelping)
+                {
+                    _Agent.SetDestination(_Exit.position);
+
+                    if (Vector3.Distance(transform.position, _Exit.position) < 1)
+                    {
+                        Destroy(gameObject);
+                    }
+
+                    _scannerComponent._FinishedHelping = false;
+                    _scannerComponent._scannedItems = 0;
+                }
+               
             }
         }
+
+        
     }
+
+    //private void HelpTimer()
+    //{
+    //    _TimerText.gameObject.SetActive(true);
+
+    //    _Timer -= Time.deltaTime;
+
+    //    _TimerText.text = _Timer.ToString("F0");
+    //}
 
     private void OnValidate()
     {

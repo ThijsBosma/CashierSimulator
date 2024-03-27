@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -8,11 +9,13 @@ public class CustomerProduceSpawner : MonoBehaviour
     [SerializeField] private GameObject[] _Produce;
     [SerializeField] private Transform _ProduceSpawnPoint;
     [SerializeField] private float _TimeBetweenSpawns;
+    [SerializeField] private float _MoneyPerCustomer;
 
+    private PlayerData _playerData = new PlayerData();
     private CustomerManager _customerManager;
 
     private Coroutine _coroutine;
-    private float _randomizedIndex;
+    public float _randomizedIndex;
     private int _produceSpawned;
 
     private void Awake()
@@ -43,6 +46,12 @@ public class CustomerProduceSpawner : MonoBehaviour
 
                 _coroutine = null;
             }
+            else
+            {
+                _playerData._PlayerMoney += _MoneyPerCustomer;
+            }
         }
     }
+
+    
 }

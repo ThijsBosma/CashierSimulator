@@ -6,8 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/EndingScenes/HomelessEnding.unity
-    guid: ef51385b3f68fde4080cb2389349c2f3
+    path: Assets/Scenes/MainScene.unity
+    guid: 882bc7ee49303c24e8dcd2e32e82b9b6
+  - enabled: 1
+    path: Assets/Scenes/ThanksForHelping.unity
+    guid: 7318f49d856d4b740ad48692a25d9174
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 19e57c5eb684ef4478b1db8a387f352f, type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 11428be0b97df4145b1896b9eaa70ffa, type: 2}
