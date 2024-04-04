@@ -18,6 +18,7 @@ public class CustomerManager : MonoBehaviour
     [Header("Components")]
     [SerializeField] private NavMeshAgent _Agent;
     private Scanner _scannerComponent;
+    private GameManager _gameManager;
 
     [Header("CustomerVariables")]
     [SerializeField] private float _TimeBetweenVisits;
@@ -38,6 +39,7 @@ public class CustomerManager : MonoBehaviour
     {
         _randomizedIndex = Random.Range(1, _PointsOfInterest.Length);
         _scannerComponent = FindObjectOfType<Scanner>();
+        _gameManager = FindObjectOfType<GameManager>();
     }
 
     void Update()
@@ -80,8 +82,7 @@ public class CustomerManager : MonoBehaviour
                         Destroy(gameObject);
                     }
 
-                    _scannerComponent._FinishedHelping = false;
-                    _scannerComponent._scannedItems = 0;
+                    
                 }
                
             }
@@ -102,6 +103,14 @@ public class CustomerManager : MonoBehaviour
     private void OnValidate()
     {
         _Agent = GetComponent<NavMeshAgent>();
+    }
+
+    private void OnDestroy()
+    {
+        _scannerComponent._FinishedHelping = false;
+        _scannerComponent._scannedItems = 0;
+        _gameManager._CustomersSpawned += 1;
+        Instantiate(_gameManager._CustomerPrefab, _Exit.position, Quaternion.identity);
     }
 
 }

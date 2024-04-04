@@ -5,17 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private GameObject _CustomerPrefab;
+    [SerializeField] public GameObject _CustomerPrefab;
     [SerializeField] private Transform _Exit;
     private PlayerData _playerData = new PlayerData();
 
     private float _AmountOfCustomersToSpawn;
-    private float _CustomersSpawned;
+    public float _CustomersSpawned;
     private Coroutine _customerSpawnCoroutine;
 
     private void Start()
     {
-        _AmountOfCustomersToSpawn = Random.Range(2, 2);
+        _AmountOfCustomersToSpawn = Random.Range(1, 1);
     }
 
     private void Update()
@@ -36,15 +36,6 @@ public class GameManager : MonoBehaviour
             _CustomersSpawned += 1;
             yield return new WaitForSeconds(90);
             _customerSpawnCoroutine = null;
-        }
-        else
-        {
-            if (Vector3.Distance(_CustomerPrefab.transform.GetChild(1).position, _Exit.position) < 1)
-            {
-                SavePlayerDataToJSON();
-                SceneManager.LoadScene("ThanksForHelping");
-            }
-
         }
     }
 

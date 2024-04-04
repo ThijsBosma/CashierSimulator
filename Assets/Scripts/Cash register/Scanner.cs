@@ -23,7 +23,7 @@ public class Scanner : MonoBehaviour
     {
         IsValueFilled();
 
-        _hasHit = Physics.Raycast(transform.position, transform.up, out hit);
+        _hasHit = Physics.Raycast(transform.position, transform.up + new Vector3(0, 10, 0), out hit);
 
         if(_hasHit)
         {
