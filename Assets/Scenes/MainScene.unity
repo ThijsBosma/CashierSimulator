@@ -6739,6 +6739,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _CustomerPrefab: {fileID: 5207331416659698176, guid: f446e24c05a392948a8778feac2cea27, type: 3}
   _Exit: {fileID: 804530783}
+  _CustomersSpawned: 0
 --- !u!4 &1531999604
 Transform:
   m_ObjectHideFlags: 0
@@ -8653,7 +8654,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 3538b504e37f6b242ba75f751cedcbc5, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &1974811145
 Transform:
