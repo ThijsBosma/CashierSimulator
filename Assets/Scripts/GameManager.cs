@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log(_playerData._PlayerMoney);
 
-        if(_CustomersSpawned >= _AmountOfCustomersToSpawn)
+        if(_CustomersSpawned > _AmountOfCustomersToSpawn)
         {
             Invoke("LoadEndOfDayScene", 2);
         }

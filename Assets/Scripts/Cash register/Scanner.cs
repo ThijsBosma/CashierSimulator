@@ -38,7 +38,6 @@ public class Scanner : MonoBehaviour
                 if(_scannedItems >= _ProduceSpawner._randomizedIndex)
                 {
                     _FinishedHelping = true;
-                    _ProduceSpawner = null;
                 }
             }
         }

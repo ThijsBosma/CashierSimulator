@@ -149,7 +149,7 @@ Transform:
   m_GameObject: {fileID: 3192032819205449050}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 26.055, y: -0.367, z: 9.972}
+  m_LocalPosition: {x: 25.645, y: 0.298, z: 9.82}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -374,8 +374,9 @@ MonoBehaviour:
   _CashRegister: {fileID: 6716981582644188138}
   _Exit: {fileID: 9203403684640816984}
   _Agent: {fileID: 7026982358061482772}
-  _TimeBetweenVisits: 5
   _TimerText: {fileID: 0}
+  _TimeBetweenVisits: 5
+  _MoneyPerCustomer: 0
   _canSpawnProduce: 0
 --- !u!114 &2454055368287846572
 MonoBehaviour:
@@ -392,7 +393,6 @@ MonoBehaviour:
   _Produce:
   - {fileID: 4329777973233482793, guid: 5285299be5706c64bb1f6b49b51256d3, type: 3}
   - {fileID: 5261788303796860261, guid: aa82664ab3d7a6941b587e6125482460, type: 3}
-  - {fileID: 2658484256331834280, guid: 54f58637aab24a54f81c6ec2da1fea10, type: 3}
   - {fileID: 849393838592281781, guid: cf1987f79dfeda44facc6c57db26a62d, type: 3}
   - {fileID: 8850428662339906808, guid: f272b924afc40384eb60d6674e693ade, type: 3}
   - {fileID: 4373887565897798599, guid: 86b00fb0898cc1f4f9f9bb0e14b290c5, type: 3}
@@ -400,7 +400,6 @@ MonoBehaviour:
   - {fileID: 1806883555395804860, guid: ae5ca11c044831545bc84151a661eb04, type: 3}
   _ProduceSpawnPoint: {fileID: 3598302643314763134}
   _TimeBetweenSpawns: 2
-  _MoneyPerCustomer: 20
   _randomizedIndex: 0
 --- !u!1 &5207331416659698176
 GameObject:

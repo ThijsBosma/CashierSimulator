@@ -39,7 +39,8 @@ public class CustomerManager : MonoBehaviour
 
     void Start()
     {
-        _randomizedIndex = Random.Range(1, _PointsOfInterest.Length);
+        //_randomizedIndex = Random.Range(1, _PointsOfInterest.Length);
+        _Agent.SetDestination(_CashRegister.position);
         _scannerComponent = FindObjectOfType<Scanner>();
         _gameManager = FindObjectOfType<GameManager>();
     }
@@ -73,32 +74,32 @@ public class CustomerManager : MonoBehaviour
 
             if (Vector3.Distance(transform.position, _CashRegister.position) <= _distanceCompare)
             {
+                //HelpTimer();
                 _canSpawnProduce = true;
-                HelpTimer();
+            }
+        }
 
-                if (_scannerComponent._FinishedHelping)
-                {
-                    _Agent.SetDestination(_Exit.position);
+        if (_scannerComponent._FinishedHelping)
+        {
+            _Agent.SetDestination(_Exit.position);
+            _canSpawnProduce = false;
 
-                    if (Vector3.Distance(transform.position, _Exit.position) < 1)
-                    {
-                        Instantiate(_gameManager._CustomerPrefab, _Exit.position, Quaternion.identity);
-                        Destroy(gameObject);
-                    }
-                }
-               
+            if (Vector3.Distance(transform.position, _Exit.position) < 1)
+            {
+                Destroy(gameObject);
+                Instantiate(_gameManager._CustomerPrefab, _Exit.position, Quaternion.identity);
             }
         }
     }
 
-    private void HelpTimer()
-    {
-        _TimerText.gameObject.SetActive(true);
+    //private void HelpTimer()
+    //{
+    //    _TimerText.gameObject.SetActive(true);
 
-        _Timer -= Time.deltaTime;
+    //    _Timer -= Time.deltaTime;
 
-        _TimerText.text = _Timer.ToString("F0");
-    }
+    //    _TimerText.text = _Timer.ToString("F0");
+    //}
 
     private void OnValidate()
     {
