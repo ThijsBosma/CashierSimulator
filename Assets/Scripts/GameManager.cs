@@ -11,33 +11,36 @@ public class GameManager : MonoBehaviour
 
     private float _AmountOfCustomersToSpawn;
     public float _CustomersSpawned;
-    private Coroutine _customerSpawnCoroutine;
 
     private void Start()
     {
-        _AmountOfCustomersToSpawn = Random.Range(1, 1);
+        _AmountOfCustomersToSpawn = 2;
+        SpawnFirstCustomer();
     }
 
     private void Update()
     {
-        if (_customerSpawnCoroutine == null)
-        {
-            _customerSpawnCoroutine = StartCoroutine(SpawnCustomers());
-        }
-
         Debug.Log(_playerData._PlayerMoney);
+
+        if(_CustomersSpawned >= _AmountOfCustomersToSpawn)
+        {
+            Invoke("LoadEndOfDayScene", 2);
+        }
+
     }
 
-    private IEnumerator SpawnCustomers()
+    private void LoadEndOfDayScene()
     {
-        if(_CustomersSpawned < _AmountOfCustomersToSpawn)
-        {
-            Instantiate(_CustomerPrefab, _Exit.position, Quaternion.identity);
-            _CustomersSpawned += 1;
-            yield return new WaitForSeconds(90);
-            _customerSpawnCoroutine = null;
-        }
+        SavePlayerDataToJSON();
+        SceneManager.LoadScene("DayFinishedScreen");
     }
+
+    private void SpawnFirstCustomer()
+    {
+        _CustomersSpawned = 1;
+        Instantiate(_CustomerPrefab, _Exit.position, Quaternion.identity);
+    }
+
 
     private void SavePlayerDataToJSON()
     {

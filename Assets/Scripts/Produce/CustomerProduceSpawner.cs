@@ -9,11 +9,9 @@ public class CustomerProduceSpawner : MonoBehaviour
     [SerializeField] private GameObject[] _Produce;
     [SerializeField] private Transform _ProduceSpawnPoint;
     [SerializeField] private float _TimeBetweenSpawns;
-    [SerializeField] private float _MoneyPerCustomer;
 
     private Vector3 _offset;
 
-    private PlayerData _playerData = new PlayerData();
     private CustomerManager _customerManager;
 
     private Coroutine _coroutine;
@@ -42,14 +40,10 @@ public class CustomerProduceSpawner : MonoBehaviour
             {
                 Instantiate(_Produce[_produceSpawned], _ProduceSpawnPoint.position + _offset, Quaternion.identity);
                 _produceSpawned += 1;
-                _offset.x -= 0.3f;
+                _offset.x -= 0.5f;
                 yield return new WaitForSeconds(_TimeBetweenSpawns);
 
                 _coroutine = null;
-            }
-            else
-            {
-                _playerData._PlayerMoney += _MoneyPerCustomer;
             }
         }
     }

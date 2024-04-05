@@ -17,13 +17,15 @@ public class CustomerManager : MonoBehaviour
 
     [Header("Components")]
     [SerializeField] private NavMeshAgent _Agent;
+    private PlayerData _playerData = new PlayerData();
     private Scanner _scannerComponent;
     private GameManager _gameManager;
 
     [Header("CustomerVariables")]
-    [SerializeField] private float _TimeBetweenVisits;
     [SerializeField] private TextMeshProUGUI _TimerText;
-    
+    [SerializeField] private float _TimeBetweenVisits;
+    [SerializeField] private float _MoneyPerCustomer;
+
     private float _Timer = 90f;
 
     public bool _canSpawnProduce;
@@ -52,7 +54,7 @@ public class CustomerManager : MonoBehaviour
 
     private IEnumerator SetPosition()
     {
-        if(_PointsOfInterestVisited < _randomizedIndex)
+        if(_PointsOfInterestVisited <= _randomizedIndex)
         {
             _Agent.SetDestination(_PointsOfInterest[_PointsOfInterestVisited].position);
 
@@ -72,6 +74,7 @@ public class CustomerManager : MonoBehaviour
             if (Vector3.Distance(transform.position, _CashRegister.position) <= _distanceCompare)
             {
                 _canSpawnProduce = true;
+                HelpTimer();
 
                 if (_scannerComponent._FinishedHelping)
                 {
@@ -79,26 +82,23 @@ public class CustomerManager : MonoBehaviour
 
                     if (Vector3.Distance(transform.position, _Exit.position) < 1)
                     {
+                        Instantiate(_gameManager._CustomerPrefab, _Exit.position, Quaternion.identity);
                         Destroy(gameObject);
                     }
-
-                    
                 }
                
             }
         }
-
-        
     }
 
-    //private void HelpTimer()
-    //{
-    //    _TimerText.gameObject.SetActive(true);
+    private void HelpTimer()
+    {
+        _TimerText.gameObject.SetActive(true);
 
-    //    _Timer -= Time.deltaTime;
+        _Timer -= Time.deltaTime;
 
-    //    _TimerText.text = _Timer.ToString("F0");
-    //}
+        _TimerText.text = _Timer.ToString("F0");
+    }
 
     private void OnValidate()
     {
@@ -110,7 +110,7 @@ public class CustomerManager : MonoBehaviour
         _scannerComponent._FinishedHelping = false;
         _scannerComponent._scannedItems = 0;
         _gameManager._CustomersSpawned += 1;
-        Instantiate(_gameManager._CustomerPrefab, _Exit.position, Quaternion.identity);
+        _playerData._PlayerMoney += _MoneyPerCustomer;
     }
 
 }
