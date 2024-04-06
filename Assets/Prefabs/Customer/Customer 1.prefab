@@ -368,15 +368,13 @@ MonoBehaviour:
   - {fileID: 3756255130338822082}
   - {fileID: 8691178644571383723}
   - {fileID: 6564795325875416166}
-  - {fileID: 5431534885599438053}
   - {fileID: 8363356465000489679}
   - {fileID: 366166744493714561}
   _CashRegister: {fileID: 6716981582644188138}
   _Exit: {fileID: 9203403684640816984}
   _Agent: {fileID: 7026982358061482772}
   _TimerText: {fileID: 0}
-  _TimeBetweenVisits: 5
-  _MoneyPerCustomer: 0
+  _TimeBetweenVisits: 2.5
   _canSpawnProduce: 0
 --- !u!114 &2454055368287846572
 MonoBehaviour:
@@ -459,7 +457,7 @@ Transform:
   m_GameObject: {fileID: 5669290683277479030}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.3069229, y: -0.5500001, z: 0.37788916}
+  m_LocalPosition: {x: 0, y: -0.048, z: -0.121}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

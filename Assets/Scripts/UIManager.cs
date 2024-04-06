@@ -10,16 +10,14 @@ public class UIManager : MonoBehaviour
     
     [Header("Components")]
     [SerializeField] private TextMeshProUGUI _CurrentMoneyText;
+    [SerializeField] private ParticleSystem _GoodFeedback;
 
-    private float _rentCost = 25;
     private bool _isRentPayed;
 
     private void Start()
     {
         LoadJSONFile();
         UpdateUI();
-
-        Rent(25);
     }
 
     public void Rent(float rentCost)
@@ -28,62 +26,17 @@ public class UIManager : MonoBehaviour
         {
             _playerData._PlayerMoney -= rentCost;
             _isRentPayed = true;
+            _GoodFeedback.Play();
         }
-        else
+
+        if(!_isRentPayed && _playerData._PlayerMoney <= rentCost)
         {
             _isRentPayed = false;
         }
     }
 
-    public void FoodCheck(float foodCost)
-    {
-        if(_playerData._PlayerMoney >= foodCost)
-        {
-            _playerData._PlayerMoney -= foodCost;
-            UpdateUI();
-
-            _playerData._Hunger += 50;
-        }
-        else
-        {
-            _playerData._Hunger -= 50;
-        }
-    }
-
-    public void WaterCheck(float waterCost)
-    {
-        if(_playerData._PlayerMoney >= waterCost)
-        {
-            _playerData._PlayerMoney -= waterCost;
-            UpdateUI();
-
-            _playerData._Thirst += 50;
-        }
-        else
-        {
-            _playerData._Thirst -= 50;
-        }
-    }
-
-    public void HeatCheck(float heatCost)
-    {
-        if(_playerData._PlayerMoney >= heatCost)
-        {
-            _playerData._PlayerMoney -= heatCost;
-            UpdateUI();
-
-            _playerData._Heat += 50;
-        }
-        else
-        {
-            _playerData._Heat -= 50;
-        }
-    }
-
     public void Continue()
     {
-        _playerData.NecessitiesCheck();
-
         if(_isRentPayed)
         {
             ConvertToJSON();

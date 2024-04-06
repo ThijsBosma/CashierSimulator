@@ -12,10 +12,13 @@ public class GameManager : MonoBehaviour
     private float _AmountOfCustomersToSpawn;
     public float _CustomersSpawned;
 
+    private float _MoneyToGive = 25;
+
     private void Start()
     {
-        _AmountOfCustomersToSpawn = 2;
+        _AmountOfCustomersToSpawn = Random.Range(1, 3);
         SpawnFirstCustomer();
+        _playerData._PlayerMoney = _MoneyToGive;
     }
 
     private void Update()
@@ -24,15 +27,15 @@ public class GameManager : MonoBehaviour
 
         if(_CustomersSpawned > _AmountOfCustomersToSpawn)
         {
-            Invoke("LoadEndOfDayScene", 2);
+            LoadEndOfDayScene("DayFinishedScreen");
         }
 
     }
 
-    private void LoadEndOfDayScene()
+    private void LoadEndOfDayScene(string sceneName)
     {
         SavePlayerDataToJSON();
-        SceneManager.LoadScene("DayFinishedScreen");
+        SceneManager.LoadScene(sceneName);
     }
 
     private void SpawnFirstCustomer()

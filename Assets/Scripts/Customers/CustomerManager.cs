@@ -17,16 +17,12 @@ public class CustomerManager : MonoBehaviour
 
     [Header("Components")]
     [SerializeField] private NavMeshAgent _Agent;
-    private PlayerData _playerData = new PlayerData();
     private Scanner _scannerComponent;
     private GameManager _gameManager;
 
     [Header("CustomerVariables")]
     [SerializeField] private TextMeshProUGUI _TimerText;
     [SerializeField] private float _TimeBetweenVisits;
-    [SerializeField] private float _MoneyPerCustomer;
-
-    private float _Timer = 90f;
 
     public bool _canSpawnProduce;
     private float _distanceCompare = 1f;
@@ -39,10 +35,10 @@ public class CustomerManager : MonoBehaviour
 
     void Start()
     {
-        //_randomizedIndex = Random.Range(1, _PointsOfInterest.Length);
-        _Agent.SetDestination(_CashRegister.position);
+        _randomizedIndex = Random.Range(1, _PointsOfInterest.Length);
         _scannerComponent = FindObjectOfType<Scanner>();
         _gameManager = FindObjectOfType<GameManager>();
+        _positionCoroutine = null;
     }
 
     void Update()
@@ -86,20 +82,11 @@ public class CustomerManager : MonoBehaviour
 
             if (Vector3.Distance(transform.position, _Exit.position) < 1)
             {
-                Destroy(gameObject);
                 Instantiate(_gameManager._CustomerPrefab, _Exit.position, Quaternion.identity);
+                Destroy(gameObject);
             }
         }
     }
-
-    //private void HelpTimer()
-    //{
-    //    _TimerText.gameObject.SetActive(true);
-
-    //    _Timer -= Time.deltaTime;
-
-    //    _TimerText.text = _Timer.ToString("F0");
-    //}
 
     private void OnValidate()
     {
@@ -111,7 +98,6 @@ public class CustomerManager : MonoBehaviour
         _scannerComponent._FinishedHelping = false;
         _scannerComponent._scannedItems = 0;
         _gameManager._CustomersSpawned += 1;
-        _playerData._PlayerMoney += _MoneyPerCustomer;
     }
 
 }
